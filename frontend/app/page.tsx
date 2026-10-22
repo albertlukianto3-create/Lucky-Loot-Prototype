@@ -463,7 +463,7 @@ function SlotsView({ ctx }: { ctx: any }) {
           ))}
         </div>
         <div className="mt-4 h-7 text-lg font-bold">
-          {res && (res.payout > 0 ? <span className="text-emerald-400">Menang +{fmt(res.payout)} 🪙 (x{res.multiplier})</span> : <span className="text-red-400">Belum beruntung</span>)}
+          {res && (res.payout > 0 ? <span className="text-emerald-400">Menang +{fmt(res.payout)} Coin(x{res.multiplier})</span> : <span className="text-red-400">Belum beruntung</span>)}
         </div>
       </div>
       <div className={`${card} space-y-4`}>
@@ -749,7 +749,7 @@ function AdminView({ ctx }: { ctx: any }) {
           {users.map((u) => (
             <div key={u.id} className={`${card} flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between`}>
               <div className="text-sm"><b>{u.username}</b> {u.role === "admin" && <span className="ml-1 rounded bg-purple-600 px-1.5 text-xs">admin</span>}
-                <div className="text-slate-400">{fmt(u.coins)} 🪙 - {u.deposit_code} - {dt(u.created_at)}</div></div>
+                <div className="text-slate-400">{fmt(u.coins)} Coin- {u.deposit_code} - {dt(u.created_at)}</div></div>
               <div className="flex gap-2">
                 <input className={`${inputCls} w-28`} type="number" placeholder="+/- Coin" value={adj[u.id] || ""} onChange={(e) => setAdj({ ...adj, [u.id]: e.target.value })} />
                 <button className={btnGhost} disabled={!Number(adj[u.id])} onClick={() => act(() => api(`/api/admin/users/${u.id}/coins`, { body: { delta: Number(adj[u.id]), note: "manual" }, token: t }), "Saldo diperbarui").then(() => setAdj({ ...adj, [u.id]: "" }))}>Ubah saldo</button>
@@ -896,7 +896,7 @@ export default function Home() {
           <div className="text-xl font-black sm:text-2xl"><span className="text-amber-300">Lucky</span> <span className="text-purple-400">Loot</span></div>
           {me && (
             <div className="flex items-center gap-2 sm:gap-3">
-              <div className="rounded-full border border-amber-400/50 bg-amber-400/10 px-3 py-1.5 text-sm font-bold text-amber-300 shadow-[0_0_14px_rgba(251,191,36,.25)]">🪙 {fmt(me.coins)}</div>
+              <div className="rounded-full border border-amber-400/50 bg-amber-400/10 px-3 py-1.5 text-sm font-bold text-amber-300 shadow-[0_0_14px_rgba(251,191,36,.25)]">Coin{fmt(me.coins)}</div>
               <span className="hidden text-sm text-slate-400 sm:inline">{me.username}</span>
               <button className={btnGhost} onClick={logout}>Keluar</button>
             </div>
