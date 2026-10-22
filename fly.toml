@@ -1,12 +1,8 @@
-# fly.toml app configuration file generated for lucky-loot-prototype on 2026-10-22T12:41:51Z
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
-
 app = 'lucky-loot-prototype'
 primary_region = 'ams'
 
 [build]
+  dockerfile = 'Dockerfile'
 
 [http_service]
   internal_port = 8080
@@ -17,7 +13,6 @@ primary_region = 'ams'
   processes = ['app']
 
 [[vm]]
-  memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
   memory_mb = 256
