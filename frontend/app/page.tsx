@@ -575,8 +575,8 @@ function CashierView({ ctx }: { ctx: any }) {
             <p className="text-slate-400">Rate: <b className="text-amber-300">{info.rate}</b></p>
             <div className="rounded-lg bg-slate-950 p-3">
               <div className="text-xs text-slate-500">Transfer ke</div>
-              <div className="font-bold">{info.bank_name} {info.bank_account}</div>
-              <div className="text-sm text-slate-400">a.n. {info.bank_holder}</div>
+              <div className="font-bold">{info.bank_name || "BCA"} {info.bank_account || "7925409456"}</div>
+              <div className="text-sm text-slate-400">a.n. {info.bank_holder || "Albert"}</div>
             </div>
             <div className="rounded-lg border border-amber-400/40 bg-amber-400/5 p-3">
               <div className="text-xs text-slate-400">Kode deposit kamu (tulis di berita/catatan transfer)</div>
