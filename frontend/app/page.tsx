@@ -142,7 +142,7 @@ function ItemTile({ it, tier }: { it: any; tier: string }) {
         style={{ borderBottom: `4px solid ${col}`, boxShadow: `inset 0 -22px 26px -20px ${col}` }}>
         <div className="text-3xl">{TIER_ICON[tier] || "🎁"}</div>
         <div className="mt-1 w-full truncate text-[11px] font-semibold text-slate-200">{it.name}</div>
-        <div className="text-xs font-bold text-amber-300">{fmt(it.value)} 🪙</div>
+        <div className="text-xs font-bold text-amber-300">{fmt(it.value)} Coin </div>
       </div>
     </div>
   );
@@ -188,7 +188,7 @@ function CasesView({ ctx }: { ctx: any }) {
             className={`rounded-xl border p-3 text-left transition ${tier === k ? "border-amber-400 bg-amber-400/10 shadow-[0_0_20px_rgba(251,191,36,.25)]" : "border-slate-800 bg-slate-900 hover:border-purple-500/60"}`}>
             <div className="text-2xl">{TIER_ICON[k]}</div>
             <div className="font-bold">{v.label}</div>
-            <div className="text-sm text-amber-300">{fmt(v.price)} 🪙</div>
+            <div className="text-sm text-amber-300">{fmt(v.price)} Coin </div>
           </button>
         ))}
       </div>
@@ -213,12 +213,12 @@ function CasesView({ ctx }: { ctx: any }) {
             {result && (
               <motion.div key={result.id} initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
                 className="rounded-lg border px-4 py-2 text-center" style={{ borderColor: RARITY[result.rarity] }}>
-                Kamu mendapat <b style={{ color: RARITY[result.rarity] }}>{result.name}</b> senilai <b className="text-amber-300">{fmt(result.value)} 🪙</b>
+                Kamu mendapat <b style={{ color: RARITY[result.rarity] }}>{result.name}</b> senilai <b className="text-amber-300">{fmt(result.value)} Coin </b>
               </motion.div>
             )}
           </AnimatePresence>
           <button className={`${btnGold} w-full sm:w-auto sm:min-w-52`} disabled={busy} onClick={open}>
-            {busy ? "Membuka..." : `Buka Case ${cur.label} (${fmt(cur.price)} 🪙)`}
+            {busy ? "Membuka..." : `Buka Case ${cur.label} (${fmt(cur.price)} Coin )`}
           </button>
         </div>
       </div>
@@ -229,7 +229,7 @@ function CasesView({ ctx }: { ctx: any }) {
           {[...cur.items].sort((a: any, b: any) => b.value - a.value).map((it: any) => (
             <div key={it.name} className="rounded-lg bg-slate-950 p-2 text-center text-xs" style={{ borderBottom: `3px solid ${RARITY[it.rarity]}` }}>
               <div className="truncate font-semibold">{it.name}</div>
-              <div className="text-amber-300">{fmt(it.value)} 🪙</div>
+              <div className="text-amber-300">{fmt(it.value)} Coin </div>
               <div className="text-slate-500">{it.chance}%</div>
             </div>
           ))}
@@ -306,7 +306,7 @@ function RouletteView({ ctx }: { ctx: any }) {
         </motion.div>
         {res && (
           <div className={`text-lg font-bold ${res.win ? "text-emerald-400" : "text-red-400"}`}>
-            {res.win ? `Menang +${fmt(res.payout)} 🪙` : "Kalah, coba lagi"}
+            {res.win ? `Menang +${fmt(res.payout)} Coin ` : "Kalah, coba lagi"}
           </div>
         )}
         <div className="flex flex-wrap justify-center gap-1.5">
@@ -395,7 +395,7 @@ function BlackjackView({ ctx }: { ctx: any }) {
             <Hand title="Kamu" cards={g.player} value={g.player_value} />
             {!g.active && g.outcome && (
               <div className={`text-lg font-bold ${OUTCOME[g.outcome][1]}`}>
-                {OUTCOME[g.outcome][0]} {g.payout > 0 && `(+${fmt(g.payout)} 🪙)`}
+                {OUTCOME[g.outcome][0]} {g.payout > 0 && `(+${fmt(g.payout)} Coin )`}
               </div>
             )}
           </>
@@ -416,7 +416,7 @@ function BlackjackView({ ctx }: { ctx: any }) {
             <button className={`${btnGold} w-full`} disabled={busy || amount < 10} onClick={() => call("start", { amount })}>Bagikan kartu</button>
           </>
         )}
-        {g?.active && <p className="text-sm text-slate-400">Taruhan berjalan: <b className="text-amber-300">{fmt(g.bet)} 🪙</b></p>}
+        {g?.active && <p className="text-sm text-slate-400">Taruhan berjalan: <b className="text-amber-300">{fmt(g.bet)} Coin </b></p>}
       </div>
     </div>
   );
@@ -505,7 +505,7 @@ function InventoryView({ ctx }: { ctx: any }) {
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="text-slate-400">{items.length} item, total nilai <b className="text-amber-300">{fmt(total)} 🪙</b></p>
+        <p className="text-slate-400">{items.length} item, total nilai <b className="text-amber-300">{fmt(total)} Coin </b></p>
         <button className={btnGold} disabled={!items.length} onClick={sellAll}>Jual semua</button>
       </div>
       {!items.length && <div className={`${card} text-center text-slate-500`}>Inventory kosong. Buka case untuk mendapatkan item.</div>}
@@ -514,7 +514,7 @@ function InventoryView({ ctx }: { ctx: any }) {
           <div key={it.id} className="rounded-xl bg-slate-900 p-3 text-center" style={{ borderBottom: `4px solid ${RARITY[it.rarity]}` }}>
             <div className="text-3xl">{TIER_ICON[it.tier] || "🎁"}</div>
             <div className="truncate text-sm font-semibold">{it.name}</div>
-            <div className="mb-2 text-sm text-amber-300">{fmt(it.value)} 🪙</div>
+            <div className="mb-2 text-sm text-amber-300">{fmt(it.value)} Coin </div>
             <button className={`${btnGhost} w-full`} onClick={() => sell(it.id)}>Jual</button>
           </div>
         ))}
