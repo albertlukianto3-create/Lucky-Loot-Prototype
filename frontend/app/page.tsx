@@ -95,10 +95,10 @@ function AuthPanel({ onAuth }: { onAuth: (t: string, u: any) => void }) {
           <span className="text-purple-400 drop-shadow-[0_0_18px_rgba(168,85,247,.6)]">Loot</span>
         </div>
         <p className="mt-4 max-w-md text-slate-400">
-          Buka case dari Bronze sampai Ruby, mainkan Roulette, Blackjack, dan Slot. Jual item jadi Coin, lalu tarik ke BCA, Mandiri, DANA, atau GoPay.
+          Buka case dari Bronze sampai Ruby, mainkan Roulette, Blackjack, dan Slot. Jual item jadi Coin , lalu tarik ke BCA, Mandiri, DANA, atau GoPay.
         </p>
         <div className="mt-6 grid max-w-md grid-cols-3 gap-2 text-center text-xs text-slate-300">
-          {["5 tier case", "4 mini-game", "100 Coin = Rp 10.000"].map((t) => (
+          {["5 tier case", "4 mini-game", "100 Coin  = Rp 10.000"].map((t) => (
             <div key={t} className="rounded-lg border border-slate-800 bg-slate-900 px-2 py-3">{t}</div>
           ))}
         </div>
@@ -245,7 +245,7 @@ function CasesView({ ctx }: { ctx: any }) {
 function BetInput({ value, set, max }: { value: number; set: (n: number) => void; max: number }) {
   return (
     <div>
-      <label className="mb-1 block text-sm text-slate-400">Taruhan (10 - 5.000 Coin)</label>
+      <label className="mb-1 block text-sm text-slate-400">Taruhan (10 - 5.000 Coin )</label>
       <input className={inputCls} type="number" min={10} max={5000} value={value} onChange={(e) => set(Math.max(0, Number(e.target.value) || 0))} />
       <div className="mt-2 flex flex-wrap gap-2">
         {[10, 50, 100, 500].map((n) => <button key={n} type="button" className={btnGhost} onClick={() => set(n)}>{n}</button>)}
@@ -330,7 +330,7 @@ function RouletteView({ ctx }: { ctx: any }) {
             <input className={inputCls} type="number" min={0} max={36} value={num} onChange={(e) => setNum(Math.min(36, Math.max(0, Number(e.target.value) || 0)))} />
           </div>
         )}
-        <BetInput value={amount} set={setAmount} max={ctx.me.coins} />
+        <BetInput value={amount} set={setAmount} max={ctx.me.Coin s} />
         <button className={`${btnPurple} w-full`} disabled={spin || amount < 10} onClick={play}>{spin ? "Memutar..." : "Putar Roulette"}</button>
       </div>
     </div>
@@ -412,7 +412,7 @@ function BlackjackView({ ctx }: { ctx: any }) {
           </div>
         ) : (
           <>
-            <BetInput value={amount} set={setAmount} max={ctx.me.coins} />
+            <BetInput value={amount} set={setAmount} max={ctx.me.Coin s} />
             <button className={`${btnGold} w-full`} disabled={busy || amount < 10} onClick={() => call("start", { amount })}>Bagikan kartu</button>
           </>
         )}
@@ -463,11 +463,11 @@ function SlotsView({ ctx }: { ctx: any }) {
           ))}
         </div>
         <div className="mt-4 h-7 text-lg font-bold">
-          {res && (res.payout > 0 ? <span className="text-emerald-400">Menang +{fmt(res.payout)} Coin(x{res.multiplier})</span> : <span className="text-red-400">Belum beruntung</span>)}
+          {res && (res.payout > 0 ? <span className="text-emerald-400">Menang +{fmt(res.payout)} Coin (x{res.multiplier})</span> : <span className="text-red-400">Belum beruntung</span>)}
         </div>
       </div>
       <div className={`${card} space-y-4`}>
-        <BetInput value={amount} set={setAmount} max={ctx.me.coins} />
+        <BetInput value={amount} set={setAmount} max={ctx.me.Coin s} />
         <button className={`${btnGold} w-full`} disabled={busy || amount < 10} onClick={play}>{busy ? "Berputar..." : "Putar Slot"}</button>
         <p className="text-xs text-slate-500">3 simbol sama: x5 sampai x150. Dua 🍒 x1, satu 🍒 x0,5.</p>
       </div>
@@ -487,7 +487,7 @@ function InventoryView({ ctx }: { ctx: any }) {
     try {
       const r = await api(`/api/inventory/${id}/sell`, { body: {}, token: ctx.token });
       ctx.setBalance(r.balance);
-      ctx.notify(`Item terjual +${fmt(r.sold)} Coin`);
+      ctx.notify(`Item terjual +${fmt(r.sold)} Coin `);
       load();
     } catch (e: any) { ctx.notify(e.message, false); }
   };
@@ -495,7 +495,7 @@ function InventoryView({ ctx }: { ctx: any }) {
     try {
       const r = await api("/api/inventory/sell-all", { body: {}, token: ctx.token });
       ctx.setBalance(r.balance);
-      ctx.notify(`${r.count} item terjual +${fmt(r.sold)} Coin`);
+      ctx.notify(`${r.count} item terjual +${fmt(r.sold)} Coin `);
       load();
     } catch (e: any) { ctx.notify(e.message, false); }
   };
@@ -593,7 +593,7 @@ function CashierView({ ctx }: { ctx: any }) {
             <div className="space-y-2">
               {info.history.map((d: any) => (
                 <div key={d.id} className="flex items-center justify-between rounded-lg bg-slate-950 px-3 py-2 text-sm">
-                  <span>{idr(d.amount_idr)} <span className="text-amber-300">(+{fmt(d.coins)} 🪙)</span></span>
+                  <span>{idr(d.amount_idr)} <span className="text-amber-300">(+{fmt(d.coins)} Coin )</span></span>
                   <span className="text-xs text-slate-500">{dt(d.created_at)}</span>
                 </div>
               ))}
@@ -612,7 +612,7 @@ function CashierView({ ctx }: { ctx: any }) {
             <input className={inputCls} placeholder="Nama pemilik" value={name} onChange={(e) => setName(e.target.value)} />
             <div>
               <input className={inputCls} type="number" min={100} value={coins} onChange={(e) => setCoins(Number(e.target.value) || 0)} />
-              <p className="mt-1 text-sm text-slate-400">Minimal 100 Coin. Kamu menerima <b className="text-amber-300">{idr(coins * 100)}</b>. Saldo: {fmt(ctx.me.coins)} 🪙</p>
+              <p className="mt-1 text-sm text-slate-400">Minimal 100 Coin. Kamu menerima <b className="text-amber-300">{idr(coins * 100)}</b>. Saldo: {fmt(ctx.me.coins)} Coin </p>
             </div>
             <button className={`${btnGold} w-full`} disabled={busy || coins < 100 || acc.length < 5 || name.trim().length < 2}>{busy ? "Mengirim..." : "Ajukan withdraw"}</button>
             <p className="text-xs text-slate-500">Coin ditahan dan status Pending sampai disetujui admin. Jika ditolak, Coin dikembalikan.</p>
@@ -701,7 +701,7 @@ function AdminView({ ctx }: { ctx: any }) {
           {wds.map((w) => (
             <div key={w.id} className={`${card} flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between`}>
               <div className="text-sm">
-                <div><b>{w.username}</b> - {idr(w.amount_idr)} ({fmt(w.coins)} 🪙)</div>
+                <div><b>{w.username}</b> - {idr(w.amount_idr)} ({fmt(w.coins)} Coin )</div>
                 <div className="text-slate-400">{w.method} {w.account_number} a.n. {w.account_name}</div>
                 <div className="text-xs text-slate-500">{dt(w.created_at)}</div>
               </div>
@@ -764,7 +764,7 @@ function AdminView({ ctx }: { ctx: any }) {
           {!deps.length && <div className={`${card} text-slate-500`}>Tidak ada deposit yang belum cocok.</div>}
           {deps.map((d) => (
             <div key={d.id} className={`${card} flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between`}>
-              <div className="text-sm"><b>{idr(d.amount_idr)}</b> (+{fmt(d.coins)} 🪙) {d.sender && <span className="text-slate-400">dari {d.sender}</span>}
+              <div className="text-sm"><b>{idr(d.amount_idr)}</b> (+{fmt(d.coins)} Coin ) {d.sender && <span className="text-slate-400">dari {d.sender}</span>}
                 <div className="max-w-md truncate text-xs text-slate-500">{d.message}</div></div>
               <div className="flex gap-2">
                 <input className={`${inputCls} w-36`} placeholder="username" value={assign[d.id] || ""} onChange={(e) => setAssign({ ...assign, [d.id]: e.target.value })} />
